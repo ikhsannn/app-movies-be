@@ -1,0 +1,153 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Movie {
+  id: Int!
+  nameMovie: String!
+  hargaMovie: String!
+  description: String!
+  active: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  film: [Product!]
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Product {
+  id: Int!
+  userId: Int!
+  user: User!
+  movieId: Int!
+  movie: Movie!
+  status_pemesanan: String!
+  total: Float!
+  status: String!
+  pembayaran: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type User {
+  id: Int!
+  email: String!
+  name: String!
+  password: String!
+  role: String!
+  active: String!
+  access_token: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  sewaFilm: [Product!]
+}
+
+type LoginResponse {
+  access_token: String!
+  user: User!
+}
+
+type LogOutUser {
+  Message: String!
+}
+
+type OutputResponseUser {
+  message: String!
+  user: User!
+}
+
+type OutputResponseFilterUser {
+  data: [User!]!
+  total: Float!
+  page: Float!
+  last_page: Float
+}
+
+type OutputResponse {
+  message: String!
+  movie: Movie!
+}
+
+type OutputResponseMovie {
+  data: [Movie!]!
+  total: Float!
+  page: Float!
+  last_page: Float
+}
+
+type OutputResponseProduct {
+  message: String!
+  product: Product!
+}
+
+type OutputResponseFilter {
+  data: [Product!]!
+  total: Float!
+  page: Float!
+  last_page: Float
+}
+
+type Query {
+  logout: LogOutUser!
+  getusers: [User!]!
+  users(filter: Filter!): OutputResponseFilterUser!
+  getProfile: User!
+  getMovies: [Movie!]!
+  movies(filter: Filter!): OutputResponseMovie!
+  movie(id: Float!): Movie!
+  getproducts: [Product!]!
+  products(filter: Filter!): OutputResponseFilter!
+  product: [Product!]!
+  deleteProduct(id: Float!): OutputResponseProduct!
+}
+
+input Filter {
+  filter: String
+  next: String
+}
+
+type Mutation {
+  signupUser(signup: RegisterUserInput!): User!
+  signin(signin: LoginUserInput!): LoginResponse!
+  createUser(createUser: CreateUserInput!): User!
+  deleteUser(id: Float!): OutputResponseUser!
+  updateUser(updateUser: CreateUserInput!): OutputResponseUser!
+  createMovie(createMovie: CreateMovieInput!): Movie!
+  updateMovie(id: Float!, updateMovie: CreateMovieInput!): OutputResponse!
+  deleteMovie(id: Float!): OutputResponse!
+  createProduct(SewaFilm: CreateSewaFilm!): Product!
+  updateProduct(id: Float!, SewaFilm: CreateSewaFilm!): OutputResponseProduct!
+  accSewaFilm(id: Float!): OutputResponseProduct!
+}
+
+input RegisterUserInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+input CreateUserInput {
+  email: String!
+  name: String!
+  password: String
+  role: String
+}
+
+input CreateMovieInput {
+  nameMovie: String!
+  hargaMovie: String!
+  description: String!
+}
+
+input CreateSewaFilm {
+  movieId: Int!
+  pembayaran: String!
+}
